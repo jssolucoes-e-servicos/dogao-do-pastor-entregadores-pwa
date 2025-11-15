@@ -25,7 +25,7 @@ export default function HomePage() {
   useEffect(() => {
     if (!token || !user) router.replace('/login');
 
-    setDeliveryPersonId1(user?.DeliveryPerson[0].id);
+    setDeliveryPersonId(user?.DeliveryPerson[0].id);
   }, [token, user]);
 
   // Inicialize socket quando o ID existir
