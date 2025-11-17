@@ -20,13 +20,16 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [token, setToken] = useState<string | null>(null);
   const [user, setUser] = useState<IUser | null>(null);
 
-  useEffect(async () => {
-    const stored = localStorage.getItem('access_token');
-    const storedUser = localStorage.getItem('user');
-    if (stored && storedUser) {
-      setToken(stored);
-      setUser(JSON.parse(storedUser));
+  useEffect(() => {
+    async function getStorage() {
+      const stored = localStorage.getItem('access_token');
+      const storedUser = localStorage.getItem('user');
+      if (stored && storedUser) {
+        setToken(stored);
+        setUser(JSON.parse(storedUser));
+      }
     }
+    getStorage()
   }, []);
 
   const login = (newToken: string, user: IUser) => {

@@ -8,6 +8,7 @@ import { ProfileCard } from '@/components/ProfileCard';
 import { TabBar } from '@/components/TabBar';
 import { useAuth } from '@/context/AuthContext';
 import { useDeliverySocket } from '@/hooks/useDeliverySocket';
+import { usePushNotifications } from '@/hooks/usePushNotifications';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -23,8 +24,10 @@ export default function HomePage() {
 
   // Recupere o deliveryPersonId do usuário autenticado no seu app, ex: do token ou do backend
   useEffect(() => {
+    console.log('token', token);
+    console.log('user', user);
     if (!token || !user) router.replace('/login');
-
+    usePushNotifications(deliveryPersonId ?? '');
     setDeliveryPersonId(user?.DeliveryPerson[0].id);
   }, [token, user]);
 
